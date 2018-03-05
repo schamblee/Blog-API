@@ -1,5 +1,15 @@
 const uuid = require('uuid');
 
+// this module provides volatile storage, using a `BlogPost`
+// model. We haven't learned about databases yet, so for now
+// we're using in-memory storage. This means each time the app stops, our storage
+// gets erased.
+
+// don't worry to much about how BlogPost is implemented.
+// Our concern in this example is with how the API layer
+// is implemented, and getting it to use an existing model.
+
+
 function StorageException(message) {
    this.message = message;
    this.name = "StorageException";
@@ -41,7 +51,7 @@ const BlogPosts = {
     const postIndex = this.posts.findIndex(
       post => post.id === updatedPost.id);
     if (postIndex === -1) {
-      throw new StorageException(
+      throw StorageException(
         `Can't update item \`${id}\` because doesn't exist.`)
     }
     this.posts[postIndex] = Object.assign(
